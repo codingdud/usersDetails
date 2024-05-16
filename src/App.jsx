@@ -5,6 +5,8 @@ import UserPage,{loader as userLoader} from './pages/UserPage';
 import NotFoundPage from './pages/NotFoundPage';
 import Profile, { loader as loaderID } from './components/Profile';
 import ErrorPage from './components/ErrorPage';
+import HomePage from './pages/HomePage';
+import AboutUsPage from './pages/AboutUs';
 function App() {
   const router= createBrowserRouter([
     {
@@ -14,7 +16,7 @@ function App() {
       children:[
         {
           index:true,
-          element:<h1>Home</h1>
+          element:<HomePage/>
         },
         {
           path:'/users',
@@ -36,7 +38,7 @@ function App() {
         },
         {
           path:'/about',
-          element:<h1>About</h1>
+          element:<AboutUsPage/>
         },
         {
           path:'*',

@@ -36,7 +36,7 @@ export default function UserPage() {
         Users
           </Typography>
       <Grid container spacing={2}>
-        <Grid xs={7}>
+        <Grid xs={12} md={7}>
         <Suspense fallback={<LoadingPage/>}>
           <Await resolve={usersData}>
             {(userLoadedData)=>{
@@ -53,7 +53,7 @@ export default function UserPage() {
           </Await>
         </Suspense>
         </Grid>
-        <Grid xs={5}>
+        <Grid xs={12} md={5} className="hidden-xs-down">
           <Item>
             <Outlet/>
           </Item>
