@@ -4,11 +4,14 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import UserCard from '../components/UserCard';
-import { Typography } from '@mui/material';
+import { Pagination, Typography } from '@mui/material';
 import { Await, defer, json, Outlet, useLoaderData } from 'react-router-dom';
  import { Suspense } from 'react';
 
 import LoadingPage from '../components/Loading';
+
+import usePagination from '../hooks/pagination'
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -40,23 +43,29 @@ export default function UserPage() {
         <Suspense fallback={<LoadingPage/>}>
           <Await resolve={usersData}>
             {(userLoadedData)=>{
-              console.log(userLoadedData[0])
+              const[totalPages,
+                  startPageIndex,
+                  endPageIndex,
+                  currentPageIndex,//eslint-disable-line
+                  displayPage,]=usePagination(6,userLoadedData.length)
+              let pageSlice=userLoadedData.slice(startPageIndex,endPageIndex)
               return <Item item xs={12 } >
-                {userLoadedData.map((userData,id)=>(<UserCard
+                {pageSlice.map((userData,id)=>(<UserCard
                 id={userData.id}
                 key={id}   
                 url={userData.avatar} 
                 name={`${userData.profile.firstName} ${userData.profile.lastName}`} 
                 subtitle={userData.jobTitle}/>))}
+                <Pagination color='primary' count={totalPages} onChange={(event,value)=>displayPage(value)}/>
               </Item>
             }}
           </Await>
         </Suspense>
         </Grid>
         <Grid xs={12} md={5} className="hidden-xs-down">
-          <Item>
+          <>
             <Outlet/>
-          </Item>
+          </>
         </Grid>
       </Grid>
     </Box>

@@ -14,6 +14,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import alter from '../assets/alter.gif';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -57,6 +58,10 @@ export default function ProfileCard({data}) {
         height="194"
         image={data.avatar}
         alt="Paella dish"
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = alter;
+        }}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">

@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import { styled } from '@mui/material/styles';
-
+import alter from '../assets/alter.gif';
 import { useNavigate } from "react-router-dom";
 
 const FlexBetween = styled(Box)({
     display: "flex",
     alignItems: "center",
-    border: "1px solid #000",
+    border: "2px solid #dedee0",
     padding: "10px",
     gap: "20px",
     marginBottom: "10px",
@@ -24,6 +24,10 @@ export default function UserCard({id,url,name,subtitle}) {
             height={'60px'}
             alt="user"
             src={url}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = alter;
+            }}
         />
         </Box>
         <Box
